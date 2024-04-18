@@ -1,0 +1,13 @@
+{{- $authors := slice }}
+{{- range $author := .Params.authors }}
+  {{- if $author.home }}
+    {{- $author = (printf `<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>` $author.home $author.name) }}
+  {{- else }}
+    {{- $author = $author.name }}
+  {{- end }}
+  {{- $authors = $authors | append $author }}
+{{- end }}
+{{ delimit $authors ", " | safeHTML }}
+{{- if .Params.venue }}
+  <br>{{ .Params.venue | safeHTML }}
+{{- end }}

@@ -33,7 +33,7 @@
     -webkit-line-clamp: unset;
 }
 
-.post-entry {
+.pub-entry, .project-entry, .post-entry {
     position: relative;
     margin-bottom: var(--gap);
     padding: var(--gap);

@@ -1,0 +1,15 @@
+{{- if .Params.page }}
+<a href="{{ .Params.page }}" target="_blank" rel="noopener noreferrer">{{ partial "icon.html" "paperplane" }} page</a>&nbsp;&nbsp;
+{{- end }}
+{{ if .Params.arxiv }}
+<a href="{{ .Params.arxiv }}" target="_blank" rel="noopener noreferrer">{{ partial "icon.html" "arxiv" }} arxiv</a>&nbsp;&nbsp;
+{{- end }}
+{{- if .Params.paper }}
+    <a href="{{ .Params.paper | absURL }}" target="_blank" rel="noopener noreferrer">{{ partial "icon.html" "file" }} paper</a>&nbsp;&nbsp;
+{{- end }}
+{{- if .Params.code }}
+<a href="{{ .Params.code }}" target="_blank" rel="noopener noreferrer">{{ partial "icon.html" "github" }} code</a>&nbsp;&nbsp;
+{{- end }}
+{{- if .Params.video }}
+<a href="{{ .Params.video }}" target="_blank" rel="noopener noreferrer">{{ partial "icon.html" "youtube" }} video</a>&nbsp;&nbsp;
+{{- end }}

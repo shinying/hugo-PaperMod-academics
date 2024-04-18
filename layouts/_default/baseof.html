@@ -2,6 +2,9 @@
 {{- errorf "=> hugo v0.112.4 or greater is required for hugo-PaperMod to build " }}
 {{- end -}}
 
+{{- if (and .Type (eq .Type "pub")) }}
+{{- block "main" . }}{{ end }}
+{{- else }}
 <!DOCTYPE html>
 <html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
 
@@ -25,3 +28,4 @@
 </body>
 
 </html>
+{{ end }}

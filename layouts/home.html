@@ -1,0 +1,47 @@
+{{- define "main" }}
+
+{{- if (and site.Params.profileMode.enabled .IsHome) }}
+{{- partial "index_profile.html" . }}
+{{- else }} {{/* if not profileMode */}}
+
+{{- if site.Params.homeInfoParams }}
+{{- partial "home_info.html" . }}
+{{- end }}
+
+{{- $pubs := where site.RegularPages "Type" "pubs" }}
+<div class="post-content">
+{{- if site.Params.ShowOnlySelectedPubs }}
+{{- $pubs = where $pubs "Params.selected" true }}
+<h3>Selected Publications</h3>
+{{- else }}
+<h3>Publications</h3>
+{{- end }}
+</div>
+{{- range $pubs }}
+  <article class="pub-entry">
+    {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
+    {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
+    <div class="pub-meta">
+      <header class="entry-header">
+        <h4 class="entry-hint-parent">
+          {{ .Title }}
+        </h4>
+      </header>
+      {{- if and .Summary (ne (.Param "hideSummary") true) }}
+      <div class="entry-content">
+        <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+      </div>
+      {{- end }}
+      <div class="entry-content">
+      {{- partial "pub_entry_authors.html" . }}
+      </div>
+      <div class="entry-footer">
+      {{- partial "pub_entry_links.html" . }}
+      </div>
+    </div>
+  </article>
+{{- end }}
+
+{{- end }}{{/* end profileMode */}}
+
+{{- end }}{{- /* end main */ -}}

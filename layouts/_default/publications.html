@@ -1,0 +1,27 @@
+{{- define "main" }}
+
+<header class="page-header">
+  <h1>Publications</h1>
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description }}
+  </div>
+  {{- end }}
+</header>
+
+{{- $pubs := union .RegularPages .Sections }}
+{{- range $pubs }}
+  <article class="archive-entry">
+    <h4 class="archive-entry-title">
+      {{- .Title }}
+    </h4>
+    <div class="archive-meta">
+    {{- partial "pub_entry_authors.html" . }}
+    </div>
+    <div class="archive-meta">
+    {{- partial "pub_entry_links.html" . }}
+    </div>
+  </article>
+{{- end }}
+
+{{- end }}{{/* end main */}}
