@@ -1,6 +1,6 @@
-<h1 align=center>Hugo PaperMod - Academics | <a href="https://shinying.github.io/" rel="nofollow">Example</a></h1>
+<h1 align=center>Hugo PaperMod-Academics | <a href="https://shinying.github.io/" rel="nofollow">Example</a></h1>
 
-> Hugo PaperMod - Academics is a theme based on [Hugo PaperMod](https://github.com/adityatelange/hugo-PaperMod).<br>This project adapts PaperMod's home-info mode for publication showcases.
+> Hugo PaperMod-Academics is a theme based on [Hugo PaperMod](https://github.com/adityatelange/hugo-PaperMod).<br>This project adapts PaperMod's home-info mode for publication showcases.
 
 **Example site** can be found [here](https://shinying.github.io), with its source [here](https://github.com/shinying/shinying.github.io).
 
