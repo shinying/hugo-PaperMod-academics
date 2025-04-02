@@ -8,6 +8,11 @@
     flex: 1;
 }
 
+.profile-text p {
+    line-height: 1.5em;
+    margin-bottom: 1em;
+}
+
 .profile-img {
     margin-left: 5%;
 }
