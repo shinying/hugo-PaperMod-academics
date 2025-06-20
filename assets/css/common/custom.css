@@ -44,6 +44,11 @@
     -webkit-line-clamp: 5;
 }
 
+.pub-entry .venue {
+    margin-top: 0.5em;
+    color:midnightblue;
+}
+
 @media screen and (max-width: 600px) {
     .pub-entry .entry-cover {
         margin: auto 5% auto 0;

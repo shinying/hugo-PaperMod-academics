@@ -9,5 +9,5 @@
 {{- end }}
 {{ delimit $authors ", " | safeHTML }}
 {{- if .Params.venue }}
-  <br>{{ .Params.venue | safeHTML }}
+  <br><h4 class="venue">{{ .Params.venue | safeHTML }}</h4>
 {{- end }}
