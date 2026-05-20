@@ -95,7 +95,8 @@
     text-align: center;
 }
 
-.entry-cover img {
+.entry-cover img,
+.entry-cover video {
     border-radius: var(--radius);
     width: 100%;
     height: auto;

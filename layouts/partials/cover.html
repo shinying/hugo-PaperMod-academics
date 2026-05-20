@@ -19,40 +19,55 @@
         {{- $processableFormats = $processableFormats | append "webp" -}}
     {{- end -}}
 
+    {{- $isVideo := (in (slice ".mp4" ".webm" ".ogg" ".mov") (path.Ext .Params.cover.image)) -}}
+
     {{- $imgdl := (.Params.cover.image) | absURL }}
     {{- if $cover -}}
         {{- $imgdl = $cover.Permalink }}
     {{- end -}}
 
-    {{- if $addLink }}
-        <a href="{{ $imgdl }}" target="_blank" rel="noopener noreferrer">
-    {{- end }}
+    {{- if $isVideo -}}
+        {{- $videoSrc := .Params.cover.image | absURL -}}
+        {{- $pageBundleVideo := .Resources.GetMatch (printf "*%s*" .Params.cover.image) -}}
+        {{- if $pageBundleVideo -}}
+            {{- $videoSrc = $pageBundleVideo.Permalink -}}
+        {{- end -}}
+        <video autoplay muted loop playsinline>
+            <source src="{{ $videoSrc }}" type="video/{{ trim (path.Ext .Params.cover.image) "." }}">
+        </video>
+    {{- else -}}
 
-    {{- if $cover -}}
-        {{/* i.e it is present in page bundle */}}
-        {{- if (and (in $processableFormats $cover.MediaType.SubType) ($responsiveImages) (eq $prod true)) }}
-            <img loading="{{$loading}}"
-                srcset='{{- range $size := $sizes -}}
-                            {{- if (ge $cover.Width $size) }}
-                                {{- printf "%s %s" (($cover.Resize (printf "%sx" $size)).Permalink) (printf "%sw," $size) }}
+        {{- if $addLink }}
+            <a href="{{ $imgdl }}" target="_blank" rel="noopener noreferrer">
+        {{- end }}
+
+        {{- if $cover -}}
+            {{/* i.e it is present in page bundle */}}
+            {{- if (and (in $processableFormats $cover.MediaType.SubType) ($responsiveImages) (eq $prod true)) }}
+                <img loading="{{$loading}}"
+                    srcset='{{- range $size := $sizes -}}
+                                {{- if (ge $cover.Width $size) }}
+                                    {{- printf "%s %s" (($cover.Resize (printf "%sx" $size)).Permalink) (printf "%sw," $size) }}
+                                {{- end }}
                             {{- end }}
-                        {{- end }}
-                        {{- printf "%s %dw" ($cover.Permalink) ($cover.Width) }}'
-                src="{{ $cover.Permalink }}"
-                sizes="(min-width: 768px) 720px, 100vw"
-                width="{{ $cover.Width }}" height="{{ $cover.Height }}"
-                alt="{{ $alt }}">
-        {{- else }}{{/* Unprocessable image or responsive images disabled */}}
+                            {{- printf "%s %dw" ($cover.Permalink) ($cover.Width) }}'
+                    src="{{ $cover.Permalink }}"
+                    sizes="(min-width: 768px) 720px, 100vw"
+                    width="{{ $cover.Width }}" height="{{ $cover.Height }}"
+                    alt="{{ $alt }}">
+            {{- else }}{{/* Unprocessable image or responsive images disabled */}}
+                <img loading="{{ $loading }}" src="{{ $imgdl }}" alt="{{ $alt }}">
+            {{- end }}
+        {{- else }}
+            {{- /* For absolute urls and external links, no img processing here */}}
             <img loading="{{ $loading }}" src="{{ $imgdl }}" alt="{{ $alt }}">
         {{- end }}
-    {{- else }}
-        {{- /* For absolute urls and external links, no img processing here */}}
-        <img loading="{{ $loading }}" src="{{ $imgdl }}" alt="{{ $alt }}">
-    {{- end }}
 
-    {{- if $addLink }}
-        </a>
-    {{- end -}}
+        {{- if $addLink }}
+            </a>
+        {{- end -}}
+
+    {{- end }}{{/* End isVideo */}}
 
     {{- /*  Display Caption  */}}
     {{- if $.IsSingle }}
